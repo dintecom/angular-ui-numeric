@@ -15,7 +15,6 @@ angular.module('ui.numeric', []).directive("numeric", function ($timeout,$compil
                 }
                var  numericNgModelName = attrs.ngModel || "numericModel";
                numericElement.attr("ng-model", numericNgModelName);
-                $compile(numericElement)(scope);
                 function parseNumber(n, decimals) {
                     return (decimals) ? parseFloat(n) : parseInt(n);
                 };
@@ -23,7 +22,7 @@ angular.module('ui.numeric', []).directive("numeric", function ($timeout,$compil
                 var properties = ['min', 'max', 'step'];
                 var options = scope.$eval(attrs.numeric) || {};
                 var numberFormat = (attrs.numberFormat || options.numberFormat);
-                var useDecimals = numberFormat && numberFormat.toLowerCase() === "c";
+                var useDecimals = numberFormat ? (numberFormat.toLowerCase() === "c" ? true : false) : false;
 
                 var init = function () {
                     angular.forEach(properties, function (property) {
